@@ -2,15 +2,17 @@ $(document).ready(function() {
 
   $('#song-form').on('submit', function(event){
     event.preventDefault();
-    $('#song-queue').append($("<li><span class=\"title\">"
-                          + $('#song-title:text').val()
-                          + "</span><span hidden class=\"notes-view\"> [notes = "
-                          + "<span class=\"notes\">"
-                          + $('#song-notes:text').val()
-                          + "</span>]</span></li>"));
+    if($('#song-title:text').val() != ''){
+      $('#song-queue').append($("<li><span class=\"title\">"
+                            + $('#song-title:text').val()
+                            + "</span><span hidden class=\"notes-view\"> [notes = "
+                            + "<span class=\"notes\">"
+                            + $('#song-notes:text').val()
+                            + "</span>]</span></li>"));
 
-    $('#song-notes:text').val('');
-    $('#song-title:text').val('');
+      $('#song-notes:text').val('');
+      $('#song-title:text').val('');
+    }
   });
 
   // $('#play-button').on('click', function(){
@@ -45,6 +47,14 @@ $('#song-queue').on('mouseenter', 'li', function(event){
 });
 $('#song-queue').on('mouseleave', 'li', function(event){
   $(this).find(".notes-view").slideToggle('fast');
+});
+
+$(document).keydown(function (event) {
+    if ($(event.target).is('input')) { return true
+    } else if (event.keyCode == 32) {
+        play();
+        return false;
+    }
 });
 
 
